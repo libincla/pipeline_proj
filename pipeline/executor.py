@@ -28,12 +28,15 @@ def start(g_id, name=None, desc=None):
     if not vertexes_query:
         return
 
-    #query的值是找到的所有起点
+    #query的值找出起点
     query = vertexes_query.filter(Vertex.id.notin_(
         db.session.query(Edge.head).filter(Edge.g_id == g_id)
     )).all()
-    print('^' * 20)
-    print(query)
+    print('@' * 80)
+    print(query[0])
+    zds = { i.id for i in query}
+    print(zds)
+
 
 
 
@@ -53,7 +56,8 @@ def start(g_id, name=None, desc=None):
         t = Track()
         t.v_id = v.id
         t.pipeline = p
-        t.state = STATE_PENDING if t.v_id in query else STATE_WAITING
+        # t.state = STATE_PENDING if t.v_id in query else STATE_WAITING
+        t.state = STATE_PENDING if t.v_id in zds else STATE_WAITING
 
         db.session.add(t)
 
@@ -70,5 +74,19 @@ def start(g_id, name=None, desc=None):
         print(e)
         db.session.rollback()
 
+
+def  showpipeline(p_id, state=STATE_PENDING):
+    # 显示所有流程的相关信息， 流程信息， 顶点的状态， 顶点里面的input和script
+    # tracks
+
+    # 这个查询的本质是 多表join 只查一次
+    query = db.session.query(Pipeline.id, Pipeline.name, Pipeline.state,
+                             Track.id, Track.v_id, Track.state,
+                             Vertex.input, Vertex.script)\
+        .join(Track, Pipeline.id == Track.p_id)\
+        .join(Vertex, Vertex.id == Track.v_id)\
+        .filter(Track.p_id == p_id)\
+        .filter(Track.state == state)
+    return query.all()
 
 

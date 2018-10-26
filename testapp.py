@@ -4,7 +4,7 @@ from pipeline.model import Graph, Vertex, Pipeline, Edge, Track
 from pipeline.service import create_graph, add_edge, add_vertex
 from pipeline.executor import start
 
-# db = Database(URL, echo=DATABASE_DEBUG)
+db = Database(URL, echo=DATABASE_DEBUG)
 # db.drop_all()
 # db.create_all()
 # print(db)
@@ -12,7 +12,11 @@ from pipeline.executor import start
 # db1 = Database(URL, echo=DATABASE_DEBUG)
 # print(db1)
 
-start(1,'第一条测试数据')
+# db.drop_all()
+# db.create_all()
+# test_create_dag()
+#
+# start()
 
 
 # G_ID = 1
