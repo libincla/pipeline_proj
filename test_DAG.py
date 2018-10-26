@@ -79,7 +79,7 @@ def check_graph(graph:Graph):
 
 
 
-A = db.session.query(Graph).filter(Graph.name == 'my_test2').first()
+A = db.session.query(Graph).filter(Graph.name == 'my_test11').first()
 #
 #
 # print('*' * 10)

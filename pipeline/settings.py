@@ -10,5 +10,5 @@ DATABASE = 'pipeline'
 
 DATABASE_DEBUG = True
 
-URL = "mysql+pymysql://{}:{}@{}:{}/{}".format(USERNAME, PASSWORD, HOST, PORT, DATABASE)
+URL = "mysql+pymysql://{}:{}@{}:{}/{}?{}".format(USERNAME, PASSWORD, HOST, PORT, DATABASE, 'charset=utf8')
 

@@ -1,6 +1,7 @@
 from .model import  db
 from .model import Graph, Vertex, Pipeline, Edge, Track
-
+from .settings import URL, DATABASE, DATABASE_DEBUG
+from .model import Database
 
 #创建DAG
 
@@ -77,3 +78,4 @@ def del_vetex(id):
 
 
 
+db = Database(URL, echo=DATABASE_DEBUG)
