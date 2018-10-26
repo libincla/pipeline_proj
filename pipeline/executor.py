@@ -75,7 +75,8 @@ def start(g_id, name=None, desc=None):
         db.session.rollback()
 
 
-def  showpipeline(p_id, state=STATE_PENDING):
+# def  showpipeline(p_id, state=STATE_PENDING):
+def showpipeline(p_id, state=[STATE_PENDING]):
     # 显示所有流程的相关信息， 流程信息， 顶点的状态， 顶点里面的input和script
     # tracks
 
@@ -86,7 +87,9 @@ def  showpipeline(p_id, state=STATE_PENDING):
         .join(Track, Pipeline.id == Track.p_id)\
         .join(Vertex, Vertex.id == Track.v_id)\
         .filter(Track.p_id == p_id)\
-        .filter(Track.state == state)
+        .filter(Track.state.in_(state))
+        # .filter(Track.state == state)
+
     return query.all()
 
 
